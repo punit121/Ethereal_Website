@@ -1,18 +1,37 @@
 {% extends 'website/base.html' %}
 {% load staticfiles %}
-<link href="{% static 'website/css/main.css' %}" rel="stylesheet">
+<link href="{% static 'website/css/login.css' %}" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 {% block body %}
 <div class="container">
-    <h1>Register</h1>
-    <form method="post" action=".">{% csrf_token %}
-        <table border="0">
-            {{ form.as_table }}
-        </table>
-        <input type="submit" value="Register" />
-    </form>
-    <a href="/">Login</a>
+	<div class="row">
+		<div class="col-md-5 col-md-offset-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Please Register Here</h3>
+				</div>
+				<div class="panel-body">
+					<form method="post" action="">{% csrf_token %}
+						{% for field in form %}
+						<div class="form-group">
+							<div class="col-sm-offset-4 col-sm-6">
+								<span class="text-danger small">{{ field.errors }}</span>
+							</div>
+							<label class="control-label col-sm-4" for="song_title">{{ field.label_tag }}</label>
+							<div class="col-sm-6">{{ field }}</div>
+						</div>
+						{% endfor %}
+						<div class="form-group">
+							<div class="col-sm-offset-4 col-sm-6">
+								<button type="submit" class="btn btn-success">Submit</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 {% endblock %}

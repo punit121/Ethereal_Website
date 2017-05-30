@@ -40,10 +40,10 @@
     })
         </script>
 
-</head>
-{% block content %}
-<body>
-<nav class="navbar navbar-default" role="navigation">
+    </head>
+    {% block content %}
+    <body>
+        <nav class="navbar navbar-default" role="navigation">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -74,20 +74,34 @@
                         <li>
                             <a href="{% url 'website:contact' %}">Contact</a>
                         </li>
+                        {% if user.is_authenticated %}
+                        <li>
+                        <a href="{% url 'website:view_profile' %}" class="btn btn-info btn-lg">
+                                <span class="glyphicon glyphicon-user"></span> {{ user }} 
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'website:logout_user' %}">
+                                <span class="glyphicon glyphicon-off" ></span>&nbsp; 
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% if not user.is_authenticated %}
                         <li>
                             <a href="{% url 'website:login_user' %}">Login</a>
                         </li>
                         <li>
                             <a href="{% url 'website:register' %}">Signup</a>
                         </li>
+                        {% endif %}
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
             </div>
             <!-- /.container -->
-</nav>
-{% block body %}
-{% endblock %}
-</body>
-{% endblock content %}
-</html>
+        </nav>
+        {% block body %}
+        {% endblock %}
+    </body>
+    {% endblock content %}
+    </html>

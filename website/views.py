@@ -21,7 +21,7 @@ def blog(request):
 def contact(request):
 	return render_to_response('website/contact.html')
 
-def logout(request):
+def logout_user(request):
     logout(request)
     form = RegistrationForm(request.POST or None)
     context = {
@@ -72,7 +72,13 @@ def register_success(request):
     return render_to_response(
     'website/profile.html',
     )
-
+def view_profile(request, pk=None):
+    if pk:
+        user = User.objects.get(pk=pk)
+    else:
+        user = request.user
+    args = {'user': user}
+    return render(request, 'website/profile.html', args)
 
             
 """
