@@ -1,6 +1,6 @@
 from website.forms import *
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login,logout
+from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render_to_response,render
 from django.http import HttpResponseRedirect
@@ -30,9 +30,9 @@ def logout(request):
     return render(request, 'website/login.html', context)
 
 
-def login(request):
+def login_user(request):
     if request.method == "POST":
-        email = request.POST['email']
+        username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
         if user is not None:
@@ -47,20 +47,27 @@ def login(request):
     return render(request, 'website/login.html')
 
 def register(request):
+    form = RegistrationForm(request.POST)
     if request.method == 'POST':
-        form = RegistrationForm(request.POST)
+        #form = RegistrationForm(request.POST)
         if form.is_valid():
-            user = User.objects.create_user(
-            username=form.cleaned_data['username'],
-            password=form.cleaned_data['password1'],
-            email=form.cleaned_data['email']
-            )
-            return HttpResponseRedirect('/register/success/')
+            user = form.save(commit=False)
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user.set_password(password)
+            user.save()
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    profile = Profile.objects.filter(user=request.user)
+                    return render(request, 'website/profile.html', {'profile': profile})
+    context = {
+        "form": form,
+    }
+    return render(request, 'website/reg_form.html', context)
     
- 
-    else:
-        form = RegistrationForm()
-    return render(request, 'website/reg_form.html', {'form': form})
+
 def register_success(request):
     return render_to_response(
     'website/profile.html',
