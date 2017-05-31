@@ -48,9 +48,9 @@ hr {
 }
 
 .navbar-nav {
-    text-transform: uppercase;
+   /* text-transform: uppercase;*/
     font-weight: 400;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
 }
 
 .img-full {
@@ -167,7 +167,7 @@ footer p {
     }
 
     .nav>li>a {
-        padding: 35px;
+        padding: 25px;
     }
 
     .navbar-nav>li>a {
@@ -179,7 +179,7 @@ footer p {
         float: none;
         margin: 0 auto;
         table-layout: fixed;
-        font-size: 1.25em;
+        font-size: 1.1em;
     }
 }
 
