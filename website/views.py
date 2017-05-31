@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render_to_response,render, get_object_or_404
+from django.core.urlresolvers import reverse, reverse_lazy, resolve
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from .models import *
@@ -103,7 +104,19 @@ def view_profile(request, pk=None):
         user = request.user
     args = {'user': user}
     return render(request, 'website/profile.html', args)
+def edit_profile(request):
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, instance=request.user)
 
+        if form.is_valid():
+            form.save()
+            user = request.user
+            #profile = get_object_or_404(Profile, pk=profile_id)
+            return render(request, 'website/profile.html', {'user': user})
+    else:
+        form = EditProfileForm(instance=request.user)
+        args = {'form': form}
+        return render(request, 'website/edit_profile.html', args)
             
 """
 def view_profile(request, pk=None):
