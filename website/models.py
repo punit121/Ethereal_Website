@@ -5,12 +5,12 @@ from django.dispatch import receiver
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User)
+    user = models.ForeignKey(User, default=1)
     description = models.CharField(max_length=100, default='')
     city = models.CharField(max_length=100, default='')
     website = models.URLField(default='')
     phone = models.IntegerField(default=0)
-    #image = models.ImageField(upload_to='profile_image', blank=True)
+    image = models.ImageField(upload_to='profile_image', blank=True)
 
     def __str__(self):
         return self.user.username
