@@ -2,7 +2,7 @@ from website.forms import *
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.views.decorators.csrf import csrf_protect
-from django.shortcuts import render_to_response,render
+from django.shortcuts import render_to_response,render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from .models import *
@@ -10,16 +10,40 @@ from .models import *
 
 # Create your views here. 
 def index(request):
-	return render_to_response('website/index.html')
+    if not request.user.is_authenticated():
+        return render(request, 'website/index.html')
+    else:
+        user = request.user
+        #profile = get_object_or_404(Profile, pk=album_id)
+        return render(request, 'website/index.html', {'user': user})
+#	return render_to_response('website/index.html')
 
 def about(request):
-	return render_to_response('website/about.html')
+    if not request.user.is_authenticated():
+        return render(request, 'website/about.html')
+    else:
+        user = request.user
+        #profile = get_object_or_404(Profile, pk=album_id)
+        return render(request, 'website/about.html', {'user': user})
+#	return render_to_response('website/about.html')
 
 def blog(request):
-	return render_to_response('website/blog.html')
+    if not request.user.is_authenticated():
+        return render(request, 'website/blog.html')
+    else:
+        user = request.user
+        #profile = get_object_or_404(Profile, pk=album_id)
+        return render(request, 'website/blog.html', {'user': user})
+#	return render_to_response('website/blog.html')
 
 def contact(request):
-	return render_to_response('website/contact.html')
+    if not request.user.is_authenticated():
+        return render(request, 'website/contact.html')
+    else:
+        user = request.user
+        #profile = get_object_or_404(Profile, pk=album_id)
+        return render(request, 'website/contact.html', {'user': user})
+#	return render_to_response('website/contact.html')
 
 def logout_user(request):
     logout(request)
