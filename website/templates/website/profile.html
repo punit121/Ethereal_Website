@@ -20,7 +20,7 @@
             </div>
             <div class="panel-body">
               <div class="row">
-                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive"> </div>
+                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="{% static 'website/img/user.png' %}" class="img-circle img-responsive"> </div>
                 
                 <!--<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>
                   <dl>
@@ -38,12 +38,12 @@
                   <table class="table table-user-information">
                     <tbody>
                       <tr>
-                        <td>Department:</td>
-                        <td>Programming</td>
+                        <td>Username:</td>
+                        <td>{{ user }}</td>
                       </tr>
                       <tr>
-                        <td>Hire date:</td>
-                        <td>06/23/2013</td>
+                        <td>Description</td>
+                        <td> {{ user.description }} </td>
                       </tr>
                       <tr>
                         <td>Date of Birth</td>
@@ -53,7 +53,7 @@
                          <tr>
                              <tr>
                         <td>Gender</td>
-                        <td>Female</td>
+                        <td>Male</td>
                       </tr>
                         <tr>
                         <td>Home Address</td>
@@ -74,6 +74,7 @@
                   
                   
                 </div>
+                <a href="#" class="btn btn-primary"> Edit </a>
               </div>
             </div>
                

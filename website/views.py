@@ -98,7 +98,7 @@ def register_success(request):
     )
 def view_profile(request, pk=None):
     if pk:
-        user = User.objects.get(pk=pk)
+        user = Profile.objects.get(pk=pk)
     else:
         user = request.user
     args = {'user': user}
