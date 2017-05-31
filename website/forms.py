@@ -12,6 +12,15 @@ class RegistrationForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password'] 
+
+class EditProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = Profile
+        fields = ['description', 'city', 'website','phone','image']
+        
+            
+
                
     
 """

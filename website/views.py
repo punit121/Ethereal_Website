@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from .models import *
 
-
+IMAGE_FILE_TYPES = ['png', 'jpg', 'jpeg']
 # Create your views here. 
 def index(request):
     if not request.user.is_authenticated():
