@@ -64,7 +64,7 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav">
-                        
+
                         <li>
                             <a href="{% url 'website:index' %}">Home</a>
                         </li>
@@ -77,15 +77,17 @@
                         <li>
                             <a href="{% url 'website:contact' %}">Contact</a>
                         </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
                         {% if user.is_authenticated %}
                         <li>
-                        <a href="{% url 'website:view_profile' %}" class="btn btn-info btn-lg">
+                            <a href="{% url 'website:view_profile' %}" class="btn btn-info btn-lg">
                                 <span class="glyphicon glyphicon-user"></span> {{ user }} 
                             </a>
                         </li>
                         <li>
                             <a href="{% url 'website:logout_user' %}">
-                                <span class="glyphicon glyphicon-off" ></span>&nbsp; 
+                            <span class="glyphicon glyphicon-off" ></span>&nbsp; Logout
                             </a>
                         </li>
                         {% endif %}
