@@ -4,9 +4,10 @@ from django.contrib.auth import logout
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render_to_response,render, get_object_or_404
 from django.core.urlresolvers import reverse, reverse_lazy, resolve
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
-from .models import *
+from .models import Profile
 
 IMAGE_FILE_TYPES = ['png', 'jpg', 'jpeg']
 # Create your views here. 
@@ -97,26 +98,34 @@ def register_success(request):
     return render_to_response(
     'website/profile.html',
     )
-def view_profile(request, pk=None):
-    if pk:
-        user = Profile.objects.get(pk=pk)
+def view_profile(request):
+    if not request.user.is_authenticated():
+        return render(request, 'website/index.html')
     else:
-        user = request.user
-    args = {'user': user}
-    return render(request, 'website/profile.html', args)
-def edit_profile(request):
+        profile = Profile.objects.filter(user=request.user)
+        args = {'profile': profile}
+        return render(request, 'website/profile.html', args)
+def edit_profile(request,profile_id):
+    #profile = get_object_or_404(Profile,pk=user_id)
+    #context = {'profile': profile}
+    form = EditProfileForm(request.POST, instance=request.user)
     if request.method == 'POST':
-        form = EditProfileForm(request.POST, instance=request.user)
+        #form = EditProfileForm(request.POST, instance=request.user)
 
         if form.is_valid():
             form.save()
             user = request.user
-            #profile = get_object_or_404(Profile, pk=profile_id)
-            return render(request, 'website/profile.html', {'user': user})
+            profile = Profile.objects.filter(user=request.user)
+            return render(request,'website/profile.html',{'profile':profile })
     else:
-        form = EditProfileForm(instance=request.user)
+        #form = EditProfileForm(instance=request.user)
         args = {'form': form}
-        return render(request, 'website/edit_profile.html', args)
+    return render(request, 'website/edit_profile.html', args)
+        #return render(
+        #    request,
+        #    'website/edit_profile.html',
+        #    context
+        #)
             
 """
 def view_profile(request, pk=None):

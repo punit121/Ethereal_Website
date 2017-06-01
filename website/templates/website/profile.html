@@ -6,6 +6,8 @@
 {% block head %}
 <title>Profile</title>
 {% endblock %}
+{% block profile_active %}active{% endblock %}
+
 
 {% block body %}
 <div class="container">
@@ -34,16 +36,19 @@
                     <dd>Male</dd>
                   </dl>
                 </div>-->
+            {% if profile %}
+               {% for p in profile %}    
+             
                 <div class=" col-md-9 col-lg-9 "> 
                   <table class="table table-user-information">
                     <tbody>
                       <tr>
-                        <td>Username:</td>
-                        <td>{{ user }}</td>
+                        <td>id:</td>
+                        <td>{{ p.id }}</td>
                       </tr>
                       <tr>
                         <td>Description</td>
-                        <td> {{ user.description }} </td>
+                        <td> {{ p.description }} </td>
                       </tr>
                       <tr>
                         <td>Date of Birth</td>
@@ -74,7 +79,9 @@
                   
                   
                 </div>
-                <a href="{% url 'website:edit_profile' %}" class="btn btn-primary"> Edit </a>
+                {% endfor %}
+            {% endif %}    
+                <a href="{% url 'website:edit_profile' user.id %}" class="btn btn-primary"> Edit </a>
               </div>
             </div>
                
