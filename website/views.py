@@ -104,30 +104,36 @@ def view_profile(request,profile_id):
         return render(request, 'website/index.html')
     else:
         user = request.user
-        profile = Profile.objects.filter(user = request.user)
+        profile = Profile.objects.filter(pk=profile_id)
         return render(request, 'website/profile.html', {'profile': profile} )
 
 def edit_profile(request,profile_id):
-    profile = get_object_or_404(Profile,pk=profile_id)
-    context = {'profile': profile}
-    #form = EditProfileForm(request.POST, instance=request.user)
+    #profile = get_object_or_404(Profile,pk=user_id)
+    #context = {'profile': profile}
+    form = EditProfileForm(request.POST or None, request.FILES or None)
+    #args={}
     if request.method == 'POST':
-        form = EditProfileForm(request.POST, instance=request.user)
+        profile = form.save(commit=False)
+        profile.user = request.user
+        profile.image = request.FILES['image']
+        file_type = profile.image.url.split('.')[-1]
+        file_type = file_type.lower()
+        if file_type not in IMAGE_FILE_TYPES:
+                context = {
+                    'profile': profile,
+                    'form': form,
+                    'error_message': 'Image file must be PNG, JPG, or JPEG',
+                }
+                return render(request, 'website/edit_profile.html', context)
+        profile.save()
+        profile = Profile.objects.filter(pk=profile_id)
+        return render(request, 'website/profile.html', {'profile': profile})
+    context = {
+        "form": form,
+    }
+    return render(request, 'website/edit_profile.html', context)
 
-        if form.is_valid():
-            form.save()
-            user = request.user
-            profile = Profile.objects.filter(pk=profile_id)
-            return render(request,'website/profile.html',{'profile':profile } )
-    else:
-    #    form = EditProfileForm(instance=request.user)
-    #    args = {'form': form}
-    #return render(request, 'website/edit_profile.html', args)
-        return render(
-            request,
-            'website/edit_profile.html',
-            context
-        )
+    
             
 """
 def view_profile(request, pk=None):
