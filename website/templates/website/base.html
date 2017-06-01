@@ -77,7 +77,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         {% if user.is_authenticated %}
                         <li>
-                            <a href="{% url 'website:view_profile' %}" class="btn btn-info btn-lg">
+                            <a href="{% url 'website:view_profile' user.id %}" class="btn btn-info btn-lg">
                                 <span class="glyphicon glyphicon-user"></span> {{ user }} 
                             </a>
                         </li>
