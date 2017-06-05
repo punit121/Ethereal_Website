@@ -5,7 +5,7 @@ from django.dispatch import receiver
 
 
 class Profile(models.Model):
-    user = models.ForeignKey(User, default=1,unique=True)
+    user = models.OneToOneField(User, default=1,related_name='profile')
     description = models.CharField(max_length=100, default='')
     city = models.CharField(max_length=100, default='')
     website = models.URLField(default='')
@@ -20,7 +20,7 @@ class Profile(models.Model):
         if created:
             Profile.objects.create(user=instance)
 
-    #@receiver(post_save, sender=User)
-    #def save_user_profile(sender, instance, **kwargs):
-    #    instance.profile.save()    
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()    
 
