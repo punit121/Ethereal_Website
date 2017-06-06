@@ -263,7 +263,7 @@ html, body {margin: 0; padding: 0; overflow-x:hidden;}
 .et-printer-gif{
 width: 100%;
 margin:0px auto;
-height: 530px;
+height: 630px !important;
 }
 
 .et-printer-sub-div{
