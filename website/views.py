@@ -116,7 +116,7 @@ def edit_profile(request,profile_id):
         if form.is_valid():        
             profile = form.save(commit=False)
             profile.user = request.user
-            profile.image = request.FILES['image']
+            #profile.image = request.FILES['image']
             #file_type = form.image.url.split('.')[-1]
             #file_type = file_type.lower()
             #if file_type not in IMAGE_FILE_TYPES:
