@@ -50,7 +50,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <!-- navbar-brand is hidden on larger screens, but visible when the menu is collapsed -->
-                    <a class="navbar-brand" href="{% url 'website:index' %}#start"><img src="{% static 'website/img/ethereal-logo.png' %}" alt="" height="40" style="position:relative;bottom:5px;" ></a>
+                    <a class="navbar-brand" href="{% url 'website:index' %}"><img src="{% static 'website/img/ethereal-logo.png' %}" alt="" height="40" style="position:relative;bottom:5px;" ></a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -62,7 +62,7 @@
                     <ul class="nav navbar-nav">
 
                         <li>
-                            <a href="{% url 'website:index' %}#start">Home</a>
+                            <a href="{% url 'website:index' %}">Home</a>
                         </li>
                         <li>
                             <a href="{% url 'website:about' %}">About</a>

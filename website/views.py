@@ -106,28 +106,29 @@ def view_profile(request,profile_id):
         user = request.user
         profile = Profile.objects.filter(user=request.user)
         return render(request, 'website/profile.html', {'profile': profile} )
-
+#@login_required
 def edit_profile(request,profile_id):
     #profile = get_object_or_404(Profile,pk=user_id)
     #context = {'profile': profile}
-    form = EditProfileForm(request.POST or None, request.FILES or None,instance=request.user)
+    form = EditProfileForm(request.POST or None, request.FILES or None,instance=request.user.profile)
     #args={}
     if request.method == 'POST':
-        profile = form.save(commit=False)
-        profile.user = request.user
-        profile.image = request.FILES['image']
-        #file_type = form.image.url.split('.')[-1]
-        #file_type = file_type.lower()
-        #if file_type not in IMAGE_FILE_TYPES:
-        #        context = {
-        #            'profile': profile,
-        #            'form': form,
-        #            'error_message': 'Image file must be PNG, JPG, or JPEG',
-        #        }
-        #        return render(request, 'website/edit_profile.html', context)
-        profile.save()
-        profile = Profile.objects.filter(user=request.user)
-        return render(request, 'website/profile.html', {'profile': profile})
+        if form.is_valid():        
+            profile = form.save(commit=False)
+            profile.user = request.user
+            profile.image = request.FILES['image']
+            #file_type = form.image.url.split('.')[-1]
+            #file_type = file_type.lower()
+            #if file_type not in IMAGE_FILE_TYPES:
+            #        context = {
+            #            'profile': profile,
+            #            'form': form,
+            #            'error_message': 'Image file must be PNG, JPG, or JPEG',
+            #        }
+            #        return render(request, 'website/edit_profile.html', context)
+            profile.save()
+            profile = Profile.objects.filter(user=request.user)
+            return render(request, 'website/profile.html', {'profile': profile})
     context = {
         "form": form,
     }
