@@ -37,6 +37,24 @@ def blog(request):
         #profile = get_object_or_404(Profile, pk=album_id)
         return render(request, 'website/blog.html', {'user': user})
 #	return render_to_response('website/blog.html')
+def product(request):
+    if not request.user.is_authenticated():
+        return render(request, 'website/product.html')
+    else:
+        user = request.user
+        return render(request, 'website/product.html', {'user': user})
+def services(request):
+    if not request.user.is_authenticated():
+        return render(request, 'website/services.html')
+    else:
+        user = request.user
+        return render(request, 'website/services.html', {'user': user})
+def store(request):
+    if not request.user.is_authenticated():
+        return render(request, 'website/store.html')
+    else:
+        user = request.user
+        return render(request, 'website/store.html', {'user': user})                
 
 def contact(request):
     if not request.user.is_authenticated():
